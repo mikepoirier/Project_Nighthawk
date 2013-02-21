@@ -44,7 +44,7 @@ public class TestWorld extends JFrame implements Runnable {
     public void init() {
         rc = ResourceCache.getInstance();
         af = ActorFactory.getInstance();
-        rc.setResourceLocation("C:\\Users\\Mike\\Documents\\NetBeansProjects\\Project_Nighthawk(Master)\\Assets\\Images");
+        rc.setResourceLocation("C:/Users/Mike/Documents/NetBeansProjects/Project_Nighthawk(Master)/Assets/Images");
         rc.upload("SMikeWalk.zip");
         rc.upload("SRobWalk.zip");
         player = af.createActor("C:/Users/Mike/Documents/NetBeansProjects/Project_Nighthawk(Master)/Assets/Actors/player_2D.xml");
