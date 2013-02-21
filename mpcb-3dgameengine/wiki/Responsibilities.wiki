@@ -1,0 +1,19 @@
+#Everyone's responsibilities
+
+= Introduction =
+
+This page is for the members of the repository to list the items that they want to work on.
+
+
+= Responsibilities =
+
+== MP ==
+  *  Random Number Generator (Done)
+  *  Actors (In Progress)
+  *  Image Uploading (In Progress)
+
+== CB ==
+  *  Map (In Progress)
+  *  View (In Progress)
+  *  AI (In Progress)
+  *  Sound (In Progress)
