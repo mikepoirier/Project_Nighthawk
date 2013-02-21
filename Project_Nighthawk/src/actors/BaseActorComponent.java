@@ -99,4 +99,8 @@ public class BaseActorComponent implements IComponent{
     public BufferedImage getAnimation() {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }
+    
+    public boolean isAnimationEmpty() {
+        throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
+    }
 }

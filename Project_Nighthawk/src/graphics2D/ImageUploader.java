@@ -9,21 +9,21 @@ package graphics2D;
  * @author Mike
  */
 import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.*;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 import javax.imageio.ImageIO;
+import resourceCache.ResourceCache;
 
 public class ImageUploader {
     
     private static ImageUploader iu = new ImageUploader();
+    private ResourceCache rc = ResourceCache.getInstance();
 
     private java.util.Map<String, BufferedImage> images = new HashMap<>();
 
@@ -36,6 +36,10 @@ public class ImageUploader {
     public static ImageUploader getInstance(){
         return iu;
     }
+    
+//    public BufferedImage retireveImage(String name) throws IOException {
+//        return ImageIO.read(rc.get(name));
+//    }
 
     public void init(String imagesDirectory) {
         final File f = new File(imagesDirectory);
@@ -66,7 +70,7 @@ public class ImageUploader {
         }
     }
 
-    private BufferedImage[] parseZipFile(File file) {
+    public BufferedImage[] parseZipFile(File file) {
 
 //        BufferedImage[] bufferedImages = null;
         List<BufferedImage> bufferedImages = new ArrayList<>();

@@ -9,9 +9,6 @@ import actors.IComponent;
  *
  * @author Cody
  */
-
-// This needs to be moved to the actors package because an AI will just be another
-// instance of an actor with an AIComponent.
 public class AIComponent implements IComponent{
     
     private int componentID;

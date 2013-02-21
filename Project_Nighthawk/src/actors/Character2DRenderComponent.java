@@ -4,14 +4,9 @@
  */
 package actors;
 
+import graphics2D.ImageUploader;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -89,5 +84,14 @@ public class Character2DRenderComponent extends BaseActorComponent implements IC
     @Override
     public String toString() {
         return super.toString();
+    }
+    
+    @Override
+    public boolean isAnimationEmpty() {
+        boolean result = false;
+        if(characterAnimation[0] == null) {
+            result = true;
+        }
+        return result;
     }
 }

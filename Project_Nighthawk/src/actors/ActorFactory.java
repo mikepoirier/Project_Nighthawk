@@ -21,6 +21,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import resourceCache.ResourceCache;
 
 public class ActorFactory {
 
@@ -47,6 +48,7 @@ public class ActorFactory {
         Document doc = parseXmlFile(fileName);
         Element docEle = doc.getDocumentElement();
         String type = docEle.getAttribute("type");
+        String resourceFile = docEle.getAttribute("resource");
 
         //Partially creates a new Actor from the parsed XML document
         Actor actor = new Actor(nextId, type);
@@ -56,7 +58,7 @@ public class ActorFactory {
         if (nl != null && nl.getLength() > 0) {
             for (int i = 0; i < nl.getLength(); i++) {
                 Element e = (Element) nl.item(i);
-                BaseActorComponent ac = getComponent(e);
+                BaseActorComponent ac = getComponent(e, resourceFile);
                 actor.addComponent(ac, ac.getType());
             }
         }
@@ -93,7 +95,24 @@ public class ActorFactory {
                 component = createTransformComponent(e);
                 break;
             case "Character2DRenderComponent":
-                component = createCharacter2DRenderComponent(e);
+                component = createCharacter2DRenderComponent(e, null);
+                break;
+            default:
+                component = new BaseActorComponent();
+        }
+        return component;
+    }
+    
+    private BaseActorComponent getComponent(Element e, String resource) {
+        String type = e.getAttribute("type");
+        BaseActorComponent component = null;
+
+        switch (type) {
+            case "TransformComponent":
+                component = createTransformComponent(e);
+                break;
+            case "Character2DRenderComponent":
+                component = createCharacter2DRenderComponent(e, resource);
                 break;
             default:
                 component = new BaseActorComponent();
@@ -119,29 +138,44 @@ public class ActorFactory {
         return component;
     }
 
-    private BaseActorComponent createCharacter2DRenderComponent(Element e) {
+    private BaseActorComponent createCharacter2DRenderComponent(Element e, String resource) {
         Element el = null;
-        String imagesLocation = "";
+        String imagesLocation = resource;
         String animationName = "";
-        BufferedImage[] images = new BufferedImage[8];
         BaseActorComponent component = null;
+        ResourceCache rc = ResourceCache.getInstance();
         
         NodeList nl = e.getElementsByTagName("Image");
         if (nl != null && nl.getLength() > 0) {
             el = (Element) nl.item(0);
-            imagesLocation = el.getAttribute("imagesZipFile");
-            animationName = imagesLocation.substring(17).replace(".zip", "");
+            imagesLocation = imagesLocation + el.getAttribute("imagesZipFile");
+//            animationName = el.getAttribute("imagesZipFile").substring(17).replace(".zip", "");
+            animationName = el.getAttribute("imagesZipFile").replaceAll(".zip", "");
         }
-        Iterator<String> iter = iu.getImages().keySet().iterator();
-        int numOfImgs = 0;
-        while(iter.hasNext()) {
-            if(iter.next().contains(animationName)) {
-                numOfImgs++;
-            }
-        }
-        for(int i = 0; i < numOfImgs; i++) {
-            images[i] = iu.getImages().get(animationName + i);
-        }
+        
+        rc.setResourceLocation(imagesLocation);
+        BufferedImage[] images = rc.parseImages(animationName);
+        //        //<editor-fold defaultstate="collapsed" desc="Old Code">
+        //        BufferedImage[] images = new BufferedImage[8];
+        //        BaseActorComponent component = null;
+        //
+        //        NodeList nl = e.getElementsByTagName("Image");
+        //        if (nl != null && nl.getLength() > 0) {
+        //            el = (Element) nl.item(0);
+        //            imagesLocation = el.getAttribute("imagesZipFile");
+        //            animationName = imagesLocation.substring(17).replace(".zip", "");
+        //        }
+        //        Iterator<String> iter = iu.getImages().keySet().iterator();
+        //        int numOfImgs = 0;
+        //        while(iter.hasNext()) {
+        //            if(iter.next().contains(animationName)) {
+        //                numOfImgs++;
+        //            }
+        //        }
+        //        for(int i = 0; i < numOfImgs; i++) {
+        //            images[i] = iu.getImages().get(animationName + i);
+        //        }
+        //</editor-fold>
         return component = new Character2DRenderComponent(images);
     }
 }
