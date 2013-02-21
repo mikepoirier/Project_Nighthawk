@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Actor type="Character" resource="../Assets/2D/Characters/Player">
+
+    <Component type="TransformComponent">
+
+        <Position x="40" y="40"/>
+
+    </Component>
+
+    <Component type="Character2DRenderComponent">
+
+        <Image imagesZipFile="SMikeWalk.zip" />
+
+    </Component>
+
+</Actor>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Actor type="Character" resourse="../Assets/Actors/AI_2D.xml">
+
+    <Component type="TransformComponent">
+
+        <Position x="100" y="100"/>
+
+    </Component>
+
+    <Component type="Character2DRenderComponent">
+
+        <Image imagesZipFile="../Assets/Images/SRobWalk.zip" />
+
+    </Component>
+
+</Actor>
