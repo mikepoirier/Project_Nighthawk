@@ -48,7 +48,7 @@ public class TestWorld extends JFrame implements Runnable {
         rc.upload("SMikeWalk.zip");
         rc.upload("SRobWalk.zip");
         player = af.createActor("C:/Users/Mike/Documents/NetBeansProjects/Project_Nighthawk(Master)/Assets/Actors/player_2D.xml");
-        object = new Rectangle(275, 175, 25, 25);
+        //object = new Rectangle(275, 175, 25, 25);
     }
 
     @Override
