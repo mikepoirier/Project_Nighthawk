@@ -4,14 +4,15 @@
  */
 package controls;
 
-import java.awt.event.KeyListener;
-import actors.*;
+import actors.Actor;
 
 /**
  *
  * @author Mike
  */
-public class Controls
+public class AIControls extends BaseControls
 {
-    
+    public AIControls()
+    {
+    }
 }

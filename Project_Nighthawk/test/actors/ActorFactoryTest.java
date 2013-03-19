@@ -61,10 +61,10 @@ public class ActorFactoryTest {
         System.out.println("createActor Test:");
         String fileName = "../../Assets/Actors/player_2D.xml";
         ActorFactory instance = ActorFactory.getInstance();
-        Actor actor = instance.createActor(fileName);
+        Actor actor = instance.createActor(null, fileName);
         System.out.println(actor.toString());
         System.out.println("Transform Component Details: " + actor.getComponentMap().get("TransformComponent").toString());
-        Actor actor2 = instance.createActor(fileName);
+        Actor actor2 = instance.createActor(null, fileName);
         System.out.println(actor2.toString());
         System.out.println("Transform Component Details: " + actor2.getComponentMap().get("TransformComponent").toString());
         assertFalse(actor.getmActorID() == actor2.getmActorID());
