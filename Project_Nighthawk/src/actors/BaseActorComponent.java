@@ -140,4 +140,14 @@ public class BaseActorComponent implements IComponent
     {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }
+    
+    public void animate()
+    {
+        throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
+    }
+    
+    public BufferedImage getCurrentImage()
+    {
+        throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
+    }
 }

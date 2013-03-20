@@ -14,48 +14,44 @@ import javax.swing.JFrame;
  */
 public class BaseControls implements IControls
 {
+
     Actor owner;
-    private int x,y;
+    private int x, y, xDirection, yDirection;
 
 //    public Actor getActor()
 //    {
 //        return owner;
 //    }
-
     @Override
     public void setOwner(Actor owner)
     {
         this.owner = owner;
     }
-    
-    protected void moveUp()
+
+    protected void moveUp(int distance)
     {
-        y = owner.getComponentMap().get("TransformComponent").getY();
-        y--;
-        owner.getComponentMap().get("TransformComponent").setY(y);
+        yDirection = distance;
+        move();
     }
-    
-    protected void moveDown()
+
+    protected void moveDown(int distance)
     {
-        y = owner.getComponentMap().get("TransformComponent").getY();
-        y++;
-        owner.getComponentMap().get("TransformComponent").setY(y);
+        yDirection = distance;
+        move();
     }
-    
-    protected void moveLeft()
+
+    protected void moveLeft(int distance)
     {
-        x = owner.getComponentMap().get("TransformComponent").getX();
-        x--;
-        owner.getComponentMap().get("TransformComponent").setX(x);
+        xDirection = distance;
+        move();
     }
-    
-    protected void moveRight()
+
+    protected void moveRight(int distance)
     {
-        x = owner.getComponentMap().get("TransformComponent").getX();
-        x++;
-        owner.getComponentMap().get("TransformComponent").setY(x);
+        xDirection = distance;
+        move();
     }
-    
+
     protected void resetImage()
     {
         owner.getComponentMap().get("Character2DRenderComponent").resetAnimation();
@@ -66,10 +62,37 @@ public class BaseControls implements IControls
 //    {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-
     @Override
     public KeyAdapter getControls()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void move()
+    {
+        try
+        {
+            x = owner.getComponentMap().get("TransformComponent").getX();
+            y = owner.getComponentMap().get("TransformComponent").getY();
+            x += xDirection;
+            y += yDirection;
+            owner.getComponentMap().get("TransformComponent").setX(x);
+            owner.getComponentMap().get("TransformComponent").setY(y);
+
+            if (xDirection != 0 || yDirection != 0)
+            {
+                owner.getComponentMap().get("Character2DRenderComponent").animate();
+            }
+            else
+            {
+                owner.getComponentMap().get("Character2DRenderComponent").resetAnimation();
+            }
+        }
+        catch(Exception e)
+        {
+            System.err.println("Localized message: " + e.getLocalizedMessage());
+            System.err.println("Message: " + e.getMessage());
+            e.printStackTrace();          
+        }
     }
 }

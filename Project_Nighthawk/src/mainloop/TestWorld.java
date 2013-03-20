@@ -30,7 +30,7 @@ public class TestWorld extends JFrame implements Runnable
     private Rectangle object;
     private Image dbImage;
     private Graphics dbg, gameGraphics;
-    int xDirection, yDirection;
+    //int xDirection, yDirection;
 
     public TestWorld()
     {
