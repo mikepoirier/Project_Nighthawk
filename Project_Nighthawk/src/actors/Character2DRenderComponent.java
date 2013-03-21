@@ -50,6 +50,12 @@ public class Character2DRenderComponent extends BaseActorComponent implements IC
         totalSlides = this.characterAnimation.length - 1;
     }
 
+    public BufferedImage getCurrentImage()
+    {
+        return currentImage;
+    }
+
+    @Override
     public void resetAnimation()
     {
         if (characterAnimation == null)
@@ -63,11 +69,33 @@ public class Character2DRenderComponent extends BaseActorComponent implements IC
         }
     }
 
+//    @Override
+//    public BufferedImage getStillImage()
+//    {
+//        resetAnimation();
+//        return currentImage;
+//    }
+    
     @Override
-    public BufferedImage getStillImage()
+    public void animate()
     {
-        resetAnimation();
-        return currentImage;
+        if (slideNumber != characterAnimation.length -1)
+        {
+            // Gets the next image in the array
+            currentImage = characterAnimation[++slideNumber];
+//            slideNumber++;
+        }
+        else if (slideNumber == characterAnimation.length - 1)
+        {
+            slideNumber = 0;
+            currentImage = characterAnimation[slideNumber];
+        }
+        else
+        {
+            System.err.println("Image index out of bounds. Resetting it to 0.");
+            slideNumber = 0;
+            currentImage = characterAnimation[slideNumber];
+        }
     }
 
     @Override
