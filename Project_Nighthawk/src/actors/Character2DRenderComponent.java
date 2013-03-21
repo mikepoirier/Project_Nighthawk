@@ -79,10 +79,11 @@ public class Character2DRenderComponent extends BaseActorComponent implements IC
     @Override
     public void animate()
     {
-        if (slideNumber != characterAnimation.length - 1)
+        if (slideNumber != characterAnimation.length -1)
         {
             // Gets the next image in the array
             currentImage = characterAnimation[++slideNumber];
+//            slideNumber++;
         }
         else if (slideNumber == characterAnimation.length - 1)
         {

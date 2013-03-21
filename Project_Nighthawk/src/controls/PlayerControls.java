@@ -43,19 +43,19 @@ public class PlayerControls extends BaseControls
         public void keyPressed(KeyEvent e)
         {
             int keyCode = e.getKeyCode();
-            if (keyCode == e.VK_LEFT)
+            if (keyCode == KeyEvent.VK_LEFT)
             {
                 moveLeft(-1);
             }
-            if (keyCode == e.VK_RIGHT)
+            if (keyCode == KeyEvent.VK_RIGHT)
             {
                 moveRight(1);
             }
-            if (keyCode == e.VK_UP)
+            if (keyCode == KeyEvent.VK_UP)
             {
                 moveUp(-1);
             }
-            if (keyCode == e.VK_DOWN)
+            if (keyCode == KeyEvent.VK_DOWN)
             {
                 moveDown(1);
             }

@@ -16,7 +16,7 @@ public class BaseControls implements IControls
 {
 
     Actor owner;
-    private int x, y, xDirection, yDirection;
+    private volatile int x, y, xDirection, yDirection;
 
 //    public Actor getActor()
 //    {
@@ -28,25 +28,25 @@ public class BaseControls implements IControls
         this.owner = owner;
     }
 
-    protected void moveUp(int distance)
+    protected synchronized void moveUp(int distance)
     {
         yDirection = distance;
         move();
     }
 
-    protected void moveDown(int distance)
+    protected synchronized void moveDown(int distance)
     {
         yDirection = distance;
         move();
     }
 
-    protected void moveLeft(int distance)
+    protected synchronized void moveLeft(int distance)
     {
         xDirection = distance;
         move();
     }
 
-    protected void moveRight(int distance)
+    protected synchronized void moveRight(int distance)
     {
         xDirection = distance;
         move();
@@ -68,7 +68,7 @@ public class BaseControls implements IControls
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void move()
+    public synchronized void move()
     {
         try
         {
@@ -82,10 +82,12 @@ public class BaseControls implements IControls
             if (xDirection != 0 || yDirection != 0)
             {
                 owner.getComponentMap().get("Character2DRenderComponent").animate();
+                System.out.println("Animating the actor.");
             }
             else
             {
                 owner.getComponentMap().get("Character2DRenderComponent").resetAnimation();
+                System.out.println("Resetting the animation");
             }
         }
         catch(Exception e)
