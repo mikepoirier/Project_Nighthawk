@@ -40,9 +40,9 @@ public class Actor {
     
     public void update(JFrame game, Graphics g)
     {
-        Image imageToUpdate = componentMap.get("Character2DRenderComponent").getAnimation();
-        Integer xToUpdate = componentMap.get("TransformComponent").getX();
-        int yToUpdate = this.componentMap.get("TransformComponent").getY();
+        Image imageToUpdate = componentMap.get("Character2DRenderComponent").getCurrentImage();
+        int xToUpdate = componentMap.get("TransformComponent").getX();
+        int yToUpdate = componentMap.get("TransformComponent").getY();
         
         if(g == null)
         {
