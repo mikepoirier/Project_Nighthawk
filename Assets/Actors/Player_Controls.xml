@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Controls type="Player" resource="../Assets/2D/Characters/Player">
+
+    <Scheme type="Default">
+
+        <Position x="300" y="300"/>
+
+    </Scheme>
+
+    <Component type="Character2DRenderComponent">
+
+        <Image imagesZipFile="SMikeWalk.zip" />
+
+    </Component>
+
+</Controls>
