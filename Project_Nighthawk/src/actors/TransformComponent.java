@@ -8,45 +8,52 @@ package actors;
  *
  * @author Mike
  */
-public class TransformComponent extends BaseActorComponent implements IComponent{
-    
+public class TransformComponent extends BaseActorComponent implements IComponent
+{
+
     int x;
     int y;
     String type = "TransformComponent";
-    
-    public TransformComponent(int x, int y) {
+
+    public TransformComponent(int x, int y)
+    {
         this.x = x;
         this.y = y;
     }
 
     @Override
-    public String getType() {
+    public String getType()
+    {
         return type;
     }
 
     @Override
-    public int getX() {
+    public int getX()
+    {
         return x;
     }
 
     @Override
-    public void setX(int x) {
+    public void setX(int x)
+    {
         this.x = x;
     }
 
     @Override
-    public int getY() {
+    public int getY()
+    {
         return y;
     }
 
     @Override
-    public void setY(int y) {
+    public void setY(int y)
+    {
         this.y = y;
     }
-    
+
     @Override
-    public String toString(){
+    public String toString()
+    {
         return super.toString() + ", Position: (" + x + ", " + y + ")";
     }
-    
 }

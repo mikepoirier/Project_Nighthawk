@@ -6,12 +6,10 @@ package mainloop;
 
 import actors.Actor;
 import actors.ActorFactory;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.util.List;
 import javax.swing.JFrame;
 import resourceCache.ResourceCache;
 
@@ -31,7 +29,7 @@ public class TestWorld extends JFrame implements Runnable
     private int y;
     private Rectangle object;
     private Image dbImage;
-    private Graphics dbg;
+    private Graphics dbg, gameGraphics;
     int xDirection, yDirection;
 
     public TestWorld()
@@ -40,23 +38,24 @@ public class TestWorld extends JFrame implements Runnable
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        addKeyListener(new TestWorld.AL());
+        //addKeyListener(new TestWorld.AL());
     }
 
     public void init()
     {
         rc = ResourceCache.getInstance();
         af = ActorFactory.getInstance();
-        rc.setResourceLocation("C:/Users/Mike/Documents/NetBeansProjects/Project_Nighthawk(Master)/Assets/Images");
+        rc.setResourceLocation("../Assets/Images");
         rc.upload("SMikeWalk.zip");
         rc.upload("SRobWalk.zip");
-        player = af.createActor("C:/Users/Mike/Documents/NetBeansProjects/Project_Nighthawk(Master)/Assets/Actors/player_2D.xml");
+        player = af.createActor(this, "../Assets/Actors/player_2D.xml");
         //object = new Rectangle(275, 175, 25, 25);
     }
 
     @Override
     public void paint(Graphics g)
     {
+        this.gameGraphics = g;
         dbImage = createImage(getWidth(), getHeight());
         dbg = dbImage.getGraphics();
         paintComponent(dbg);
@@ -65,110 +64,106 @@ public class TestWorld extends JFrame implements Runnable
 
     private void paintComponent(Graphics g)
     {
-        g.setColor(Color.RED);
+//        g.setColor(Color.RED);
 //        g.fillRect(player.x, player.y, player.width, player.height);
-
-        g.drawImage(actorImage, x, y, rootPane);
+        updatePlayers(g);
+        //g.drawImage(actorImage, x, y, rootPane);
         repaint();
     }
 
-    public void move()
-    {
-        x = player.getComponentMap().get("TransformComponent").getX();
-        y = player.getComponentMap().get("TransformComponent").getY();
-        x += xDirection;
-        y += yDirection;
-        player.getComponentMap().get("TransformComponent").setX(x);
-        player.getComponentMap().get("TransformComponent").setY(y);
-        if (xDirection != 0 || yDirection != 0)
-        {
-            actorImage = player.getComponentMap().get(
-                    "Character2DRenderComponent").getAnimation();
-        }
-        else
-        {
-            actorImage = player.getComponentMap().get(
-                    "Character2DRenderComponent").getStillImage();
-        }
-    }
-
-    public void setYDirection(int ydir)
-    {
-        yDirection = ydir;
-    }
-
-    public void setXDirection(int xdir)
-    {
-        xDirection = xdir;
-    }
-
-    public class AL extends KeyAdapter
-    {
-
-        @Override
-        public void keyTyped(KeyEvent e)
-        {
-            switch (e.getKeyChar())
-            {
-                case 'Q':
-                    System.exit(0);
-            }
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e)
-        {
-            int keyCode = e.getKeyCode();
-            if (keyCode == e.VK_LEFT)
-            {
-                setXDirection(-1);
-            }
-            if (keyCode == e.VK_RIGHT)
-            {
-                setXDirection(1);
-            }
-            if (keyCode == e.VK_UP)
-            {
-                setYDirection(-1);
-            }
-            if (keyCode == e.VK_DOWN)
-            {
-                setYDirection(1);
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e)
-        {
-            int keyCode = e.getKeyCode();
-            if (keyCode == e.VK_LEFT)
-            {
-                setXDirection(0);
-            }
-            if (keyCode == e.VK_RIGHT)
-            {
-                setXDirection(0);
-            }
-            if (keyCode == e.VK_UP)
-            {
-                setYDirection(0);
-            }
-            if (keyCode == e.VK_DOWN)
-            {
-                setYDirection(0);
-            }
-        }
-    }
-
+//    public void move()
+//    {
+//        x = player.getComponentMap().get("TransformComponent").getX();
+//        y = player.getComponentMap().get("TransformComponent").getY();
+//        x += xDirection;
+//        y += yDirection;
+//        player.getComponentMap().get("TransformComponent").setX(x);
+//        player.getComponentMap().get("TransformComponent").setY(y);
+//        if (xDirection != 0 || yDirection != 0)
+//        {
+//            actorImage = player.getComponentMap().get(
+//                    "Character2DRenderComponent").getAnimation();
+//        }
+//        else
+//        {
+//            actorImage = player.getComponentMap().get(
+//                    "Character2DRenderComponent").getStillImage();
+//        }
+//    }
+//
+//    public void setYDirection(int ydir)
+//    {
+//        yDirection = ydir;
+//    }
+//
+//    public void setXDirection(int xdir)
+//    {
+//        xDirection = xdir;
+//    }
+//
+//    public class AL extends KeyAdapter
+//    {
+//
+//        @Override
+//        public void keyTyped(KeyEvent e)
+//        {
+//            switch (e.getKeyChar())
+//            {
+//                case 'Q':
+//                    System.exit(0);
+//            }
+//        }
+//
+//        @Override
+//        public void keyPressed(KeyEvent e)
+//        {
+//            int keyCode = e.getKeyCode();
+//            if (keyCode == e.VK_LEFT)
+//            {
+//                setXDirection(-1);
+//            }
+//            if (keyCode == e.VK_RIGHT)
+//            {
+//                setXDirection(1);
+//            }
+//            if (keyCode == e.VK_UP)
+//            {
+//                setYDirection(-1);
+//            }
+//            if (keyCode == e.VK_DOWN)
+//            {
+//                setYDirection(1);
+//            }
+//        }
+//
+//        @Override
+//        public void keyReleased(KeyEvent e)
+//        {
+//            int keyCode = e.getKeyCode();
+//            if (keyCode == e.VK_LEFT)
+//            {
+//                setXDirection(0);
+//            }
+//            if (keyCode == e.VK_RIGHT)
+//            {
+//                setXDirection(0);
+//            }
+//            if (keyCode == e.VK_UP)
+//            {
+//                setYDirection(0);
+//            }
+//            if (keyCode == e.VK_DOWN)
+//            {
+//                setYDirection(0);
+//            }
+//        }
+//    }
     public static void main(String[] args)
     {
-//        iu.init("../../Assets/Images");
         TestWorld main = new TestWorld();
         main.init();
         Thread t = new Thread(main);
         t.start();
-//        Thread t1 = new Thread(AI);
-//        t1.start();
     }
 
     @Override
@@ -179,7 +174,7 @@ public class TestWorld extends JFrame implements Runnable
             while (true)
             {
                 long lTime = System.nanoTime();
-                move();
+                updatePlayers(gameGraphics);
                 lTime = System.nanoTime() - lTime;
 
                 long lSleep = (long) (1000f / 60f) - (lTime / 1000000l);
@@ -196,7 +191,19 @@ public class TestWorld extends JFrame implements Runnable
             }
         } catch (Exception e)
         {
+            System.err.println("Error in the run method in TestWorld.");
             System.err.println(e.getMessage());
+            e.printStackTrace();
         }
+    }
+
+    private void updatePlayers(Graphics g)
+    {
+        List<Actor> actors = af.getActorList();
+        for (Actor current : actors)
+        {
+            current.update(this, g);
+        }
+        repaint();
     }
 }

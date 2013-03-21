@@ -4,13 +4,19 @@
 
     <Component type="TransformComponent">
 
-        <Position x="80" y="80"/>
+        <Position x="300" y="300"/>
 
     </Component>
 
     <Component type="Character2DRenderComponent">
 
         <Image imagesZipFile="SMikeWalk.zip" />
+
+    </Component>
+	
+	<Component type="ControlsComponent">
+
+        <Controls actor="player" scheme="default" />
 
     </Component>
 

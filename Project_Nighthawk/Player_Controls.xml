@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Controls type="Player" resource="../Assets/2D/Characters/Player">
+
+    <Scheme type="Default">
+
+        <Keyboard>
+            <up>VK_UP</up>
+            <down>VK_DOWN</down>
+            <left>VK_LEFT</left>
+            <right>VK_RIGHT</right>
+            <quit>VK_Q</quit>
+        </Keyboard>
+
+    </Scheme>
+
+</Controls>

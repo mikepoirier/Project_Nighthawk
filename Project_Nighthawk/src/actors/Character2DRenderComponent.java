@@ -12,7 +12,8 @@ import java.io.File;
  *
  * @author Mike
  */
-public class Character2DRenderComponent extends BaseActorComponent implements IComponent {
+public class Character2DRenderComponent extends BaseActorComponent implements IComponent
+{
 
     private String type = "Character2DRenderComponent";
     private BufferedImage[] characterAnimation = null;
@@ -20,54 +21,70 @@ public class Character2DRenderComponent extends BaseActorComponent implements IC
     private int slideNumber;
     private int totalSlides;
 
-    public Character2DRenderComponent(BufferedImage[] images) {
+    public Character2DRenderComponent(BufferedImage[] images)
+    {
         this.characterAnimation = images;
+        this.currentImage = images[0];
     }
 
     @Override
-    public String getType() {
+    public String getType()
+    {
         return type;
     }
 
     @Override
-    public BufferedImage[] getCharacterAnimation() {
+    public BufferedImage[] getCharacterAnimation()
+    {
         return characterAnimation;
     }
 
     @Override
-    public void setCharacterAnimation(BufferedImage[] characterAnimation) {
+    public void setCharacterAnimation(BufferedImage[] characterAnimation)
+    {
         this.characterAnimation = characterAnimation;
         currentImage = this.characterAnimation[0];
         slideNumber = 0;
-        
+
         // This is the total amount of images in the array.
         totalSlides = this.characterAnimation.length - 1;
     }
 
-    private void resetAnimation() {
-        if (characterAnimation == null) {
+    public void resetAnimation()
+    {
+        if (characterAnimation == null)
+        {
             System.err.println("No animation to reset. Please set character animation.");
-        } else {
+        }
+        else
+        {
             currentImage = characterAnimation[0];
             slideNumber = 0;
         }
     }
 
     @Override
-    public BufferedImage getStillImage() {
+    public BufferedImage getStillImage()
+    {
         resetAnimation();
         return currentImage;
     }
-    
+
     @Override
-    public BufferedImage getAnimation() {
-        if(slideNumber != characterAnimation.length - 1){
+    public BufferedImage getAnimation()
+    {
+        if (slideNumber != characterAnimation.length - 1)
+        {
             // Gets the next image in the array
             currentImage = characterAnimation[++slideNumber];
-        } else if (slideNumber == characterAnimation.length - 1) {
+        }
+        else if (slideNumber == characterAnimation.length - 1)
+        {
             slideNumber = 0;
             currentImage = characterAnimation[slideNumber];
-        } else {
+        }
+        else
+        {
             System.err.println("Image index out of bounds. Resetting it to 0.");
             slideNumber = 0;
             currentImage = characterAnimation[slideNumber];
@@ -82,14 +99,17 @@ public class Character2DRenderComponent extends BaseActorComponent implements IC
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return super.toString();
     }
-    
+
     @Override
-    public boolean isAnimationEmpty() {
+    public boolean isAnimationEmpty()
+    {
         boolean result = false;
-        if(characterAnimation[0] == null) {
+        if (characterAnimation[0] == null)
+        {
             result = true;
         }
         return result;
