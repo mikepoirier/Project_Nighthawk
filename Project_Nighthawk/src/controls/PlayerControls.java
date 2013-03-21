@@ -7,6 +7,8 @@ package controls;
 import actors.Actor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import javax.swing.JFrame;
 
 /**
  *
@@ -43,21 +45,21 @@ public class PlayerControls extends BaseControls
         public void keyPressed(KeyEvent e)
         {
             int keyCode = e.getKeyCode();
-            if (keyCode == KeyEvent.VK_LEFT)
+            if (keyCode == e.VK_LEFT)
             {
-                moveLeft(-1);
+                moveLeft();
             }
-            if (keyCode == KeyEvent.VK_RIGHT)
+            if (keyCode == e.VK_RIGHT)
             {
-                moveRight(1);
+                moveRight();
             }
-            if (keyCode == KeyEvent.VK_UP)
+            if (keyCode == e.VK_UP)
             {
-                moveUp(-1);
+                moveUp();
             }
-            if (keyCode == KeyEvent.VK_DOWN)
+            if (keyCode == e.VK_DOWN)
             {
-                moveDown(1);
+                moveDown();
             }
         }
 
@@ -65,26 +67,25 @@ public class PlayerControls extends BaseControls
         public void keyReleased(KeyEvent e)
         {
             int keyCode = e.getKeyCode();
-            if (keyCode == KeyEvent.VK_LEFT)
+            if (keyCode == e.VK_LEFT)
             {
-                moveLeft(0);
+                resetImage();
             }
-            if (keyCode == KeyEvent.VK_RIGHT)
+            if (keyCode == e.VK_RIGHT)
             {
-                moveRight(0);
+                resetImage();
             }
-            if (keyCode == KeyEvent.VK_UP)
+            if (keyCode == e.VK_UP)
             {
-                moveUp(0);
+                resetImage();
             }
-            if (keyCode == KeyEvent.VK_DOWN)
+            if (keyCode == e.VK_DOWN)
             {
-                moveDown(0);
+                resetImage();
             }
         }
     };
 
-    @Override
     public KeyAdapter getControls()
     {
         return controls;
