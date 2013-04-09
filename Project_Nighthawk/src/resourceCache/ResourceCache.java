@@ -14,11 +14,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.JarFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 import javax.imageio.ImageIO;
@@ -28,7 +26,8 @@ import utilities.Cache;
  *
  * @author Mike
  */
-public class ResourceCache {
+public class ResourceCache
+{
 
     private static ResourceCache rCache;
     private Cache<String, File> cache;
@@ -36,39 +35,50 @@ public class ResourceCache {
     // the default. Can be
     // changed.
 
-    private ResourceCache() {
+    private ResourceCache()
+    {
         cache = new Cache<>(100);
     }
 
-    public void setResourceLocation(String resourceLocation) {
+    public void setResourceLocation(String resourceLocation)
+    {
         this.resourceLocation = resourceLocation;
     }
 
-    public static ResourceCache getInstance() {
-        if (rCache == null) {
+    public static ResourceCache getInstance()
+    {
+        if (rCache == null)
+        {
             rCache = new ResourceCache();
         }
 
         return rCache;
     }
 
-    public void add(String key, File value) {
+    public void add(String key, File value)
+    {
         cache.put(key, value);
     }
 
-    public File get(String key) {
+    public File get(String key)
+    {
         return cache.get(key);
     }
 
-    public int size() {
+    public int size()
+    {
         return cache.size();
     }
 
-    public boolean clear() {
+    public boolean clear()
+    {
         boolean cleared = false;
-        if (cache.size() == 0) {
+        if (cache.size() == 0)
+        {
             cleared = true;
-        } else {
+        }
+        else
+        {
             cache.clear();
             cleared = true;
         }
@@ -81,26 +91,35 @@ public class ResourceCache {
      * @param fileName This is the name of the file. Make sure to include the
      * extension.
      */
-    public void upload(String fileName) {
+    public void upload(String fileName)
+    {
 
         final File directory = new File(resourceLocation);
-        FileFilter filter = new FileFilter() {
+        FileFilter filter = new FileFilter()
+        {
             @Override
-            public boolean accept(File pathname) {
-                if (pathname.getAbsolutePath().endsWith(".zip")) {
+            public boolean accept(File pathname)
+            {
+                if (pathname.getAbsolutePath().endsWith(".zip"))
+                {
                     return true;
-                } else {
+                }
+                else
+                {
                     return false;
                 }
             }
         };
 
-        if (directory.isDirectory()) {
+        if (directory.isDirectory())
+        {
             File[] files = directory.listFiles(filter);
-            for (int i = 0; i < files.length; i++) {
+            for (int i = 0; i < files.length; i++)
+            {
                 String name = files[i].getName().substring(0,
                         files[i].getName().length() - 4);
-                if (files[i].getName().equals(fileName)) {
+                if (files[i].getName().equals(fileName))
+                {
                     rCache.add(name, files[i]);
                     System.out.println("Adding " + files[i].getName()
                             + " to the cache as " + name + ".");
@@ -108,26 +127,31 @@ public class ResourceCache {
                 }
             }
             System.out.println("Error! File " + fileName + " not found!");
-        } else {
+        }
+        else
+        {
             System.out.println("String passed was not a directory!");
         }
 
     }
 
-    public BufferedImage[] parseImages(String name) {
-        
+    public BufferedImage[] parseImages(String name)
+    {
+
         File file = get(name);
-        
+
         List<BufferedImage> bufferedImages = new ArrayList<>();
-        
-        try {
+
+        try
+        {
             ZipFile zf = new ZipFile(file);
             ZipInputStream zis = new ZipInputStream(new FileInputStream(file));
             int bufferSize = 4096;
             byte[] buffer = new byte[bufferSize];
             ZipEntry ze;
 
-            for (int i = 0; (ze = zis.getNextEntry()) != null; i++) {
+            for (int i = 0; (ze = zis.getNextEntry()) != null; i++)
+            {
                 System.out.println("Extracting: " + ze);
                 int entrySize = (int) ze.getSize();
 
@@ -138,10 +162,12 @@ public class ResourceCache {
                 int chunkSize = 0;
                 int bytesRead = 0;
 
-                while (true) {
+                while (true)
+                {
                     //Read chunk to buffer
                     chunkSize = bis.read(buffer, 0, bufferSize);
-                    if (chunkSize == -1) {
+                    if (chunkSize == -1)
+                    {
                         break;
                     }
 
@@ -151,22 +177,25 @@ public class ResourceCache {
                     bytesRead += chunkSize;
                 }
                 bis.close();
-                
+
                 // Takes the byte array made from the file in the .zip container
                 // and reads it into a BufferedImage
                 BufferedImage bi = ImageIO.read(new ByteArrayInputStream(finalByteArray));
-                
+
                 System.out.println("Entry size: " + finalByteArray.length);
-                
+
                 // Adds the BufferedImage to the images map.
                 bufferedImages.add(bi);
             }
-            
+
             return null;
-        } catch (IOException ex) {
+        } catch (IOException ex)
+        {
             Logger.getLogger(ResourceCache.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
-        } finally {
+        }
+        finally
+        {
             return bufferedImages.toArray(new BufferedImage[bufferedImages.size()]);
         }
     }

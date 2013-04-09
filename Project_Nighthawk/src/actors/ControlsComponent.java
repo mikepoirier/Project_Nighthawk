@@ -24,7 +24,6 @@ public class ControlsComponent extends BaseActorComponent implements IComponent
         {
             case "player":
                 controls = new PlayerControls();
-                //game.addKeyListener(controls.getControls());
                 break;
             case "ai":
                 controls = new AIControls();
@@ -43,12 +42,22 @@ public class ControlsComponent extends BaseActorComponent implements IComponent
         return TYPE;
     }
     
+    /**
+     * Moves the character.
+     */
+    @Override
+    public void move()
+    {
+        controls.move();
+    }
+    
     @Override
     public void attachControls(JFrame game)
     {
         game.addKeyListener(controls.getControls());
     }
     
+    @Override
     public void setControlsOwner(Actor owner)
     {
         controls.setOwner(super.getOwner());

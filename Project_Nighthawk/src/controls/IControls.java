@@ -6,7 +6,6 @@ package controls;
 
 import actors.Actor;
 import java.awt.event.KeyAdapter;
-import javax.swing.JFrame;
 
 /**
  *
@@ -17,4 +16,6 @@ public interface IControls
     public void setOwner(Actor owner);
     
     public KeyAdapter getControls();
+    
+    public void move();
 }

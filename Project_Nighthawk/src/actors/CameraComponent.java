@@ -4,26 +4,12 @@
  */
 package actors;
 
-import graphics2D.Map;
-
 /**
  *
  * @author Mike
  */
 public class CameraComponent extends BaseActorComponent implements IComponent{
     
-    private Map map = null;
-
-    @Override
-    public Map getMap() {
-        return map;
-    }
-
-    @Override
-    public void setMap(Map map) {
-        this.map = map;
-    }
-
     @Override
     public String getType() {
         return "CameraComponent";

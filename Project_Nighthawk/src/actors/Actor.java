@@ -4,8 +4,11 @@
  */
 package actors;
 
-import java.awt.Graphics;
+import gameView.GameWindow;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -19,9 +22,9 @@ public class Actor {
     private int mActorID;
     private String mType;
     private Map<String, BaseActorComponent> componentMap = new HashMap<>();
-    private JFrame game;
+    private GameWindow game;
     
-    public Actor(int id, String type, JFrame game)
+    public Actor(int id, String type, GameWindow game)
     {
         mActorID = id;
         mType = type;
@@ -38,18 +41,27 @@ public class Actor {
         }
     }
     
-    public void update(JFrame game, Graphics g)
+    public void update()
     {
-        Image imageToUpdate = componentMap.get("Character2DRenderComponent").getCurrentImage();
-        int xToUpdate = componentMap.get("TransformComponent").getX();
-        int yToUpdate = componentMap.get("TransformComponent").getY();
+        componentMap.get("ControlsComponent").move();
+    }
+    
+    public void draw(Image offscreenImage)
+    {
+        Graphics2D g2d = (Graphics2D) offscreenImage.getGraphics();
+        BufferedImage imageToUpdate = componentMap.get("Character2DRenderComponent").getCurrentImage();
+        int xToDraw = componentMap.get("TransformComponent").getX();
+        int yToDraw = componentMap.get("TransformComponent").getY();
         
-        if(g == null)
+        if(g2d == null)
         {
+            System.out.println("\u001B[33mNull graphics passed.");
             return;
         }
-        g.drawImage(imageToUpdate, xToUpdate, yToUpdate, game.getRootPane());
-        //game.repaint();
+        
+        g2d.drawImage(imageToUpdate, xToDraw, yToDraw, game);
+        Toolkit.getDefaultToolkit().sync();
+        g2d.dispose();
     }
 
     public int getmActorID() {
