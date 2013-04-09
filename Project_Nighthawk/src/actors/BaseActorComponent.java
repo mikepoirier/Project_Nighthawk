@@ -4,9 +4,9 @@
  */
 package actors;
 
-import graphics2D.Map;
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
@@ -51,32 +51,22 @@ public class BaseActorComponent implements IComponent
         return type;
     }
 
-    public int getX()
+    public synchronized int getX()
     {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }
 
-    public void setX(int x)
+    public synchronized void setX(int x)
     {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }
 
-    public int getY()
+    public synchronized int getY()
     {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }
 
-    public void setY(int y)
-    {
-        throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
-    }
-
-    public Map getMap()
-    {
-        throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
-    }
-
-    public void setMap(Map map)
+    public synchronized void setY(int y)
     {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }
@@ -125,28 +115,33 @@ public class BaseActorComponent implements IComponent
     {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }
-    
+
     public void attachControls(JFrame game)
     {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }
-    
+
     public void setControlsOwner(Actor owner)
     {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }
-    
+
     public void resetAnimation()
     {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }
-    
+
     public void animate()
     {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }
-    
+
     public BufferedImage getCurrentImage()
+    {
+        throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
+    }
+
+    public void move()
     {
         throw new UnsupportedOperationException("Not supported. This is the base class, use the correct component to access the method.");
     }

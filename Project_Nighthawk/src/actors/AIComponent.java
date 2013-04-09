@@ -3,13 +3,11 @@
  * and open the template in the editor.
  */
 package actors;
-
-import actors.IComponent;
 /**
  *
  * @author Cody
  */
-public class AIComponent implements IComponent{
+public class AIComponent extends BaseActorComponent implements IComponent{
     
     private int componentID;
     private Actor ownerAI;

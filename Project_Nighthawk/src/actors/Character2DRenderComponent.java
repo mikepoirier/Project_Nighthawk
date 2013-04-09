@@ -4,9 +4,7 @@
  */
 package actors;
 
-import graphics2D.ImageUploader;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 /**
  *
@@ -64,6 +62,7 @@ public class Character2DRenderComponent extends BaseActorComponent implements IC
         }
         else
         {
+            System.out.println("Resetting the animation in C2DRComp.resetAnimation()");
             currentImage = characterAnimation[0];
             slideNumber = 0;
         }
@@ -101,15 +100,18 @@ public class Character2DRenderComponent extends BaseActorComponent implements IC
     @Override
     public BufferedImage getAnimation()
     {
+        System.out.println("Animating the actor.");
         if (slideNumber != characterAnimation.length - 1)
         {
             // Gets the next image in the array
             currentImage = characterAnimation[++slideNumber];
+            System.out.println("Character image advanced to: " + slideNumber);
         }
         else if (slideNumber == characterAnimation.length - 1)
         {
             slideNumber = 0;
             currentImage = characterAnimation[slideNumber];
+            System.out.println("Reached end of animation, setting it back to 0.");
         }
         else
         {

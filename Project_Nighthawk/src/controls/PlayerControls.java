@@ -7,8 +7,6 @@ package controls;
 import actors.Actor;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import javax.swing.JFrame;
 
 /**
  *
@@ -19,6 +17,7 @@ public class PlayerControls extends BaseControls
 
     public PlayerControls()
     {
+        
     }
 
     public PlayerControls(Actor owner)
@@ -37,6 +36,7 @@ public class PlayerControls extends BaseControls
             switch (e.getKeyChar())
             {
                 case 'Q':
+                    System.out.println("\u001B[35mSystem Exiting! Goodbye.");
                     System.exit(0);
             }
         }
@@ -45,21 +45,21 @@ public class PlayerControls extends BaseControls
         public void keyPressed(KeyEvent e)
         {
             int keyCode = e.getKeyCode();
-            if (keyCode == e.VK_LEFT)
+            if (keyCode == KeyEvent.VK_LEFT)
             {
-                moveLeft(-1);
+                movingLeft = true;
             }
-            if (keyCode == e.VK_RIGHT)
+            if (keyCode == KeyEvent.VK_RIGHT)
             {
-                moveRight(1);
+                movingRight = true;
             }
-            if (keyCode == e.VK_UP)
+            if (keyCode == KeyEvent.VK_UP)
             {
-                moveUp(-1);
+                movingUp = true;
             }
-            if (keyCode == e.VK_DOWN)
+            if (keyCode == KeyEvent.VK_DOWN)
             {
-                moveDown(1);
+                movingDown = true;
             }
         }
 
@@ -67,25 +67,26 @@ public class PlayerControls extends BaseControls
         public void keyReleased(KeyEvent e)
         {
             int keyCode = e.getKeyCode();
-            if (keyCode == e.VK_LEFT)
+            if (keyCode == KeyEvent.VK_LEFT)
             {
-                resetImage();
+                movingLeft = false;
             }
-            if (keyCode == e.VK_RIGHT)
+            if (keyCode == KeyEvent.VK_RIGHT)
             {
-                resetImage();
+                movingRight = false;
             }
-            if (keyCode == e.VK_UP)
+            if (keyCode == KeyEvent.VK_UP)
             {
-                resetImage();
+                movingUp = false;
             }
-            if (keyCode == e.VK_DOWN)
+            if (keyCode == KeyEvent.VK_DOWN)
             {
-                resetImage();
+                movingDown = false;
             }
         }
     };
 
+    @Override
     public KeyAdapter getControls()
     {
         return controls;
