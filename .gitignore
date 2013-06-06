@@ -225,3 +225,5 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
+/Project_Nighthawk/build.xml
+/Project_Nighthawk/nbproject/
