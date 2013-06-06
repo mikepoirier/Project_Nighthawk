@@ -107,6 +107,7 @@ public class Actor {
     public BaseActorComponent getComponent(int id)
     {
         //TODO: find the component by the id
+        
         return null;
     }
     
