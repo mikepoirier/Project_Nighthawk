@@ -39,20 +39,6 @@ public class ActorFactoryTest {
     public void tearDown() {
     }
 
-//    /**
-//     * Test of getInstance method, of class ActorFactory.
-//     */
-//    @Test
-//    public void testGetInstance() {
-//        System.out.println("getInstance");
-//        ActorFactory instance = null;
-//        ActorFactory expResult = null;
-//        ActorFactory result = instance.getInstance();
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-
     /**
      * Test of createActor method, of class ActorFactory.
      */

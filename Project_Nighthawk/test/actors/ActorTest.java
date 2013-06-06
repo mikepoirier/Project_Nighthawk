@@ -59,7 +59,7 @@ public class ActorTest {
         System.out.println("setmActorID");
         int mActorID = 0;
         Actor instance = null;
-        instance.setmActorID(mActorID);
+//        instance.setmActorID(mActorID);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -86,7 +86,7 @@ public class ActorTest {
         System.out.println("setmType");
         String mType = "";
         Actor instance = null;
-        instance.setmType(mType);
+//        instance.setmType(mType);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

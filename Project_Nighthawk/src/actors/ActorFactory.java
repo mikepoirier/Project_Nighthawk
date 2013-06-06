@@ -22,6 +22,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import resourceCache.ResourceCache;
 
+// TODO: take a look at the factory from the GCC4 code to compare with their factory
 public class ActorFactory
 {
 
@@ -87,7 +88,8 @@ public class ActorFactory
         String resourceFile = docEle.getAttribute("resource");
 
         //Partially creates a new Actor from the parsed XML document
-        Actor actor = new Actor(nextId, type, currentGameWindow);
+        // TODO: Remember that the constructor does not pass an instance of the game so the controls will have to be attached some other way
+        Actor actor = new Actor(nextId);
 
         //Get's the components for the Actor and adds them to the actor
         NodeList nl = doc.getElementsByTagName("Component");
@@ -96,7 +98,7 @@ public class ActorFactory
             for (int i = 0; i < nl.getLength(); i++)
             {
                 Element e = (Element) nl.item(i);
-                BaseActorComponent ac = getComponent(e, resourceFile);
+                BaseActorComponent ac = getComponent(e, resourceFile, currentGameWindow);
                 ac.setOwner(actor);
                 actor.addComponent(ac, ac.getType());
             }
@@ -136,7 +138,7 @@ public class ActorFactory
         }
     }
 
-    private BaseActorComponent getComponent(Element e, String resource)
+    private BaseActorComponent getComponent(Element e, String resource, GameWindow gw)
     {
         String type = e.getAttribute("type");
         BaseActorComponent component = null;
@@ -150,7 +152,7 @@ public class ActorFactory
                 component = createCharacter2DRenderComponent(e, resource);
                 break;
             case "ControlsComponent":
-                component = createControlsComponent(e);
+                component = createControlsComponent(e, gw);
                 break;
             default:
                 component = new BaseActorComponent();
@@ -159,7 +161,7 @@ public class ActorFactory
         return component;
     }
 
-    private BaseActorComponent createControlsComponent(Element e)
+    private BaseActorComponent createControlsComponent(Element e, GameWindow gw)
     {
         // Will add functionality to choose a different control map and custom controls.
         String actorType = null;
@@ -172,7 +174,7 @@ public class ActorFactory
             el = (Element) nl.item(0);
             actorType = el.getAttribute("actor");
         }
-        component = new ControlsComponent(actorType);
+        component = new ControlsComponent(actorType, gw);
         return component;
     }
 

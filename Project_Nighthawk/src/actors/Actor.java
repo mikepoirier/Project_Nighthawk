@@ -11,7 +11,6 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JFrame;
 
 /**
  *
@@ -20,15 +19,18 @@ import javax.swing.JFrame;
 public class Actor {
     
     private int mActorID;
-    private String mType;
-    private Map<String, BaseActorComponent> componentMap = new HashMap<>();
-    private GameWindow game;
+    private String mType, resource;
+    private Map<String, BaseActorComponent> componentMap;
+    private GameWindow game; // TODO: remove this and create a better way to get components to recognize the game window or what ever this does...
     
-    public Actor(int id, String type, GameWindow game)
+    public Actor(int id)
     {
-        mActorID = id;
-        mType = type;
-        this.game = game;
+        // TODO: create some sort of logging code and log the creation of an actor
+        
+        this.componentMap = new HashMap<>();
+        this.mActorID = id;
+        this.mType = "Unknown";
+        this.resource = "Unknown";
     }
     
     protected void init()
@@ -36,16 +38,35 @@ public class Actor {
         switch(mType)
         {
             case "Character":
-                this.componentMap.get("ControlsComponent").attachControls(game);
+                this.componentMap.get("ControlsComponent").attachControls(game);// to be removed, figure out how to link to game window, probably different implementation of controls through game UI
                 this.componentMap.get("ControlsComponent").setControlsOwner(this);
         }
     }
     
-    public void update()
+    protected void postInit()
     {
+        //TODO: call postInit() on all components
+    }
+    
+    public void destroy()
+    {
+        // TODO: Log this
+        componentMap.clear();
+    }
+    
+    public void update(long delta)
+    {
+        // TODO: redo the code here for more accurate updates, call update() on all components instead
         componentMap.get("ControlsComponent").move();
     }
     
+    public String toXml()
+    {
+        // TODO: create an xml string from this actor instance so it can be saved out to a file.
+        return null;
+    }
+    
+    // TODO: put this somewhere else, not all actors will be drawn
     public void draw(Image offscreenImage)
     {
         Graphics2D g2d = (Graphics2D) offscreenImage.getGraphics();
@@ -59,7 +80,7 @@ public class Actor {
             return;
         }
         
-        g2d.drawImage(imageToUpdate, xToDraw, yToDraw, game);
+        g2d.drawImage(imageToUpdate, xToDraw, yToDraw, game); // figure out where to put this/how to handle this once 'game' is removed
         Toolkit.getDefaultToolkit().sync();
         g2d.dispose();
     }
@@ -68,26 +89,31 @@ public class Actor {
         return mActorID;
     }
 
-    public void setmActorID(int mActorID) {
-        this.mActorID = mActorID;
-    }
-
     public String getmType() {
         return mType;
-    }
-
-    public void setmType(String mType) {
-        this.mType = mType;
     }
     
     void addComponent(BaseActorComponent ac, String componentName)
     {
+        // TODO: Log this
         ac.setOwner(this);
         componentMap.put(componentName, ac);
     }
 
     public Map<String, BaseActorComponent> getComponentMap() {
         return componentMap;
+    }
+    
+    public BaseActorComponent getComponent(int id)
+    {
+        //TODO: find the component by the id
+        return null;
+    }
+    
+    public BaseActorComponent getComponent(String name)
+    {
+        // TODO: might switch how the map holds the components which might change this method
+        return componentMap.get(name);
     }
     
     @Override

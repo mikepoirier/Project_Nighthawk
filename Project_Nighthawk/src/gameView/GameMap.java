@@ -6,6 +6,7 @@ package gameView;
 
 import actors.Actor;
 import actors.ActorFactory;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.List;
@@ -40,6 +41,8 @@ public class GameMap extends AbsGamePanel
     {
         
         bufferGraphics.clearRect(0, 0, d.width, d.height);
+        bufferGraphics.setColor(Color.GRAY);
+        bufferGraphics.fillRect(0, 0, d.width, d.height);
         
         List<Actor> actors = af.getActorList();
         
@@ -49,6 +52,5 @@ public class GameMap extends AbsGamePanel
         }
         
         g.drawImage(offscreen, 0, 0, this);
-    }
-    
+    }    
 }

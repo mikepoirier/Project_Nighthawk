@@ -7,6 +7,7 @@ package actors;
 import controls.AIControls;
 import controls.IControls;
 import controls.PlayerControls;
+import gameView.GameWindow;
 import javax.swing.JFrame;
 
 /**
@@ -15,18 +16,18 @@ import javax.swing.JFrame;
  */
 public class ControlsComponent extends BaseActorComponent implements IComponent
 {
-    IControls controls;
+    private IControls controls;
     private final String TYPE = "ControlsComponent";
     
-    public ControlsComponent(String actorType)
+    public ControlsComponent(String actorType, GameWindow gw)
     {
         switch(actorType)
         {
             case "player":
-                controls = new PlayerControls();
+                controls = new PlayerControls(gw);
                 break;
             case "ai":
-                controls = new AIControls();
+                controls = new AIControls(gw);
                 break;
             default:
                 System.err.println("Could not find controls for \"" + actorType +
@@ -48,6 +49,14 @@ public class ControlsComponent extends BaseActorComponent implements IComponent
     @Override
     public void move()
     {
+        // Tests to make sure that the controls have been attached to the correct
+        // actor.
+        if(controls.getOwner() == null)
+        {
+            controls.setOwner(this.getOwner());
+        }
+        
+        // Moves the character
         controls.move();
     }
     

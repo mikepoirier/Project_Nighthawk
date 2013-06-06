@@ -13,6 +13,5 @@ public class CameraComponent extends BaseActorComponent implements IComponent{
     @Override
     public String getType() {
         return "CameraComponent";
-    }
-    
+    }    
 }

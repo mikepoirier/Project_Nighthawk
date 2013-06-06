@@ -4,7 +4,7 @@
  */
 package controls;
 
-import actors.Actor;
+import gameView.GameWindow;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
@@ -20,14 +20,11 @@ public class PlayerControls extends BaseControls
         
     }
 
-    public PlayerControls(Actor owner)
+    public PlayerControls(GameWindow gw)
     {
-        super.setOwner(owner);
+        gw.addKeyListener(controls);
     }
-//    public void attachControls(JFrame game)
-//    {
-//        game.addKeyListener(controls);
-//    }
+    
     KeyAdapter controls = new KeyAdapter()
     {
         @Override

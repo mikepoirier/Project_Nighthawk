@@ -7,7 +7,6 @@ package processes;
 import actors.Actor;
 import actors.ActorFactory;
 import gameView.AbsGamePanel;
-import java.util.ArrayList;
 import java.util.List;
 import resourceCache.ResourceCache;
 
@@ -17,7 +16,7 @@ import resourceCache.ResourceCache;
  */
 public class PlayerProcess extends AbsGameProcess
 {
-    
+
     ActorFactory af;
     ResourceCache rc;
     AbsGamePanel agp;
@@ -31,7 +30,7 @@ public class PlayerProcess extends AbsGameProcess
         rc.upload("SRobWalk.zip");
         af = ActorFactory.getInstance();
         addActor("../Assets/Actors/player_2D.xml");
-        
+
         setState(State.RUNNING);
     }
 
@@ -39,10 +38,15 @@ public class PlayerProcess extends AbsGameProcess
     public void onUpdate(long deltaMs)
     {
         List<Actor> actorList = af.getActorList();
-        
-        for(Actor current : actorList)
+
+        // TODO: fix the update method to only accept actors of type player. Also, check the update() method just in case the current code is wrong or problematic
+
+        for (Actor current : actorList)
         {
-            current.update();
+            if ("Player".equals(current.getmType()))
+            {
+                current.update(System.currentTimeMillis());
+            }
         }
     }
 
@@ -87,10 +91,9 @@ public class PlayerProcess extends AbsGameProcess
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     public void addActor(String resource)
     {
         Actor p = af.createActor(resource);
     }
-    
 }

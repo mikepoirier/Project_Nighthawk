@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Actor type="Character" resource="../Assets/2D/Characters/Player">
+<Actor type="Player" resource="../Assets/2D/Characters/Player">
 
     <Component type="TransformComponent">
 

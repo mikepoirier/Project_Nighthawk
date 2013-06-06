@@ -6,7 +6,6 @@ package actors;
 
 import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  *

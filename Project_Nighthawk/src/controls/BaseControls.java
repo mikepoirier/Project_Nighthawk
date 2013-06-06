@@ -128,4 +128,10 @@ public class BaseControls implements IControls
     {
         this.owner = owner;
     }
+
+    @Override
+    public Actor getOwner()
+    {
+        return owner;
+    }
 }

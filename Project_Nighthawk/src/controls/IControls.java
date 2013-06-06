@@ -15,6 +15,8 @@ public interface IControls
 {
     public void setOwner(Actor owner);
     
+    public Actor getOwner();
+    
     public KeyAdapter getControls();
     
     public void move();
